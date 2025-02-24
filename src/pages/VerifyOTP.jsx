@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Loader2 } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { Link } from 'react-router-dom';
 
 const VerifyOTP = () => {
     const [searchParams] = useSearchParams();
@@ -10,8 +11,6 @@ const VerifyOTP = () => {
     const token = searchParams.get('token') || "";
     const otp = searchParams.get('otp') || "";
 
-
-    console.log(token);
 
     const [userOTP, setUserOTP] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -101,6 +100,8 @@ const VerifyOTP = () => {
 
                 {/* Debug OTP (Optional) */}
                 <p className="mt-4 text-xs text-gray-500">Debug OTP: <strong>{otp}</strong></p>
+
+                <Link to={`https://primary-production-af7f.up.railway.app/webhook/geomap/resend-otp?token=${token}`} className='text-blue-500 hover:underline cursor-pointer'>Resend OTP</Link>
             </form>
         </section>
     );

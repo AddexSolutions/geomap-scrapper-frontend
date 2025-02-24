@@ -30,13 +30,13 @@ export function AuthProvider({ children }) {
                         },
                     });
 
-                    console.log('VERIFY_RESPONSE IS', response);
+                    console.log('VERIFY_RESPONSE IS FROM AUTH-CONTEXT API CALL: ', response);
 
                     if (response.ok) {
 
                         const data = await response.json();
 
-                        console.log('DATA: ', data);
+                        console.log('VERIFY_DATA IS FROM AUTH-CONTEXT API CALL: ', data);
 
                         setUser(data); // Token is valid, set the user data.
                     } else {
@@ -89,7 +89,7 @@ export function AuthProvider({ children }) {
             }
         } catch (error) {
             console.log(error);
-            toast.error("Login Error");
+            toast.error(error.message || "Login Error");
         }
     }
 
@@ -111,7 +111,10 @@ export function AuthProvider({ children }) {
             console.log("SIGNUP DATA", data);
 
             if (response.ok) {
-                toast.success("Verification link sent! Check your email.");
+                toast.success(data.message);
+
+                // * TODO: SETUP A PAGE THAT SHOWS TO CHECK EMAIL FOR OTP VERIFICATION
+
                 setTimeout(() => {
                     navigate(`/verify-email?email=${encodeURIComponent(email)}`);
                 }, 5000);

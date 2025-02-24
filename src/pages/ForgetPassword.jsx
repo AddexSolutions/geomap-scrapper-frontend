@@ -7,16 +7,16 @@ const ForgetPassword = () => {
     const { forgetPassword } = useAuth();
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsLoading(true);
+        setIsSubmitting(true);
 
         // Modify logic based on whether you allow password resets via phone.
         await forgetPassword(email, phone);
 
-        setIsLoading(false);
+        setIsSubmitting(false);
 
         setEmail('');
         setPhone('');
@@ -25,7 +25,7 @@ const ForgetPassword = () => {
     return (
         <div className="min-h-[90vh] flex items-center justify-center bg-gray-100 px-4">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-                <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">Reset Your Password</h2>
+                <h2 className="text-3xl font-semibold text-center text-gray-800 mb-6">Forgot Your Password?</h2>
 
                 <form onSubmit={handleSubmit} className="space-y-5">
                     {/* Email */}
@@ -57,11 +57,11 @@ const ForgetPassword = () => {
                     {/* Reset Button */}
                     <button
                         type="submit"
-                        disabled={isLoading}
-                        className="w-full cursor-pointer bg-orange-500 text-white flex items-center justify-center gap-2 py-2 rounded-md hover:bg-orange-600 transition"
+                        disabled={isSubmitting}
+                        className={`w-full ${isSubmitting ? 'cursor-not-allowed' : 'cursor-pointer'} bg-orange-500 text-white flex items-center justify-center gap-2 py-2 rounded-md hover:bg-orange-600 transition`}
                     >
-                        {isLoading ? <Loader2 className="animate-spin" size={20} /> : <KeyRound size={20} />}
-                        {isLoading ? '' : 'Send Reset Link'}
+                        {isSubmitting ? <Loader2 className="animate-spin" size={20} /> : <KeyRound size={20} />}
+                        {isSubmitting ? '' : 'Send Reset Link'}
                     </button>
 
                     {/* Back to Login */}

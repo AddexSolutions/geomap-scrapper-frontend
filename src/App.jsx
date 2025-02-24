@@ -10,6 +10,8 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import { AuthProvider } from './contexts/AuthContext';
 import Header from './components/Header';
 import { Toaster } from 'react-hot-toast';
+import ResetPassword from './pages/ResetPassword';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -37,12 +39,16 @@ function MainLayout() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/verify-otp" element={<VerifyOTP />} />
         <Route path="/dashboard" element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <Dashboard />
-          </ProtectedRoute>
+          // {/* </ProtectedRoute> */}
         } />
+
+        {/* 404 Page */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
