@@ -47,7 +47,7 @@ const DashboardJobs = () => {
 
         const token = localStorage.getItem('geomap_auth');
 
-        const response = await fetch('https://primary-production-af7f.up.railway.app/webhook/gmaps/submit-job', {
+        const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/submit-job`, {
             method: 'POST',
             body: {
                 jobs: []

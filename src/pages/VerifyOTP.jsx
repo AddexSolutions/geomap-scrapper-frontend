@@ -30,13 +30,16 @@ const VerifyOTP = () => {
         setError("");
 
         try {
-            const response = await fetch(`https://primary-production-af7f.up.railway.app/webhook/geomap/verify-otp?otp=${userOTP}&token=${token}`, {
-                redirect: 'follow',
-                // mode: 'no-cors',
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/verify-otp?token=${token}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ otp: userOTP, }),
+                credentials: 'include',
             });
 
-            console.log("VERIFY");
-            console.log(response);
+            console.log("VERIFY OTP RESPONSE: ", response);
 
             const data = await response.json();
 
@@ -46,22 +49,21 @@ const VerifyOTP = () => {
 
                 if (response.status === 302) {
                     setTimeout(() => {
-                        window.location.href = data.url;
+                        window.location.href = data.detail;
                     }, 2000)
                     return;
                 }
 
-                throw new Error("Invalid OTP or token");
+                throw new Error(data.detail || "Invalid OTP or token");
             }
 
-            toast.success("OTP Verified! Redirecting to login...");
+            toast.success(data.detail || "OTP Verified! Redirecting to login...");
 
             setTimeout(() => {
                 navigate('/login');
             }, 1000)
         } catch (err) {
-            console.log(err);
-            toast.error("OTP Verification Failed!");
+            toast.error(err.message || "OTP Verification Failed!");
             setError(err.message);
         } finally {
             setIsSubmitting(false);
@@ -101,7 +103,7 @@ const VerifyOTP = () => {
                 {/* Debug OTP (Optional) */}
                 <p className="mt-4 text-xs text-gray-500">Debug OTP: <strong>{otp}</strong></p>
 
-                <Link to={`https://primary-production-af7f.up.railway.app/webhook/geomap/resend-otp?token=${token}`} className='text-blue-500 hover:underline cursor-pointer'>Resend OTP</Link>
+                <Link to={`${import.meta.env.VITE_SERVER_URL}/resend-otp?token=${token}`} className='text-blue-500 hover:underline cursor-pointer'>Resend OTP</Link>
             </form>
         </section>
     );

@@ -20,7 +20,7 @@ const Dashboard = () => {
             case "Profile":
                 return <DashboardProfile user={user} />;
             case "Settings":
-                return <DashboardSettings user={user} />;
+                return <DashboardSettings />;
             default:
                 return <DashboardOverview />;
         }
@@ -30,7 +30,7 @@ const Dashboard = () => {
         <div className="min-h-screen flex bg-gray-100">
             <aside className="w-64 bg-indigo-600 text-white p-6 shadow-lg flex flex-col">
                 <h2 className="text-2xl font-bold">Dashboard</h2>
-                <p className="text-sm text-gray-300">{user?.Email}</p>
+                <p className="text-sm text-gray-300">{user?.email}</p>
 
                 <nav className="flex flex-col space-y-3 mt-6">
                     {["Overview", "Jobs", "Profile", "Settings"].map((tab) => (

@@ -9,7 +9,7 @@ const Header = () => {
     const dropdownRef = useRef(null);
 
     // Extract first two letters of user's name
-    const avatarText = user?.Name ? user.Name.slice(0, 2).toUpperCase() : '';
+    const avatarText = user?.name ? user.name.slice(0, 2).toUpperCase() : '';
 
     // Close dropdown when clicking outside
     useEffect(() => {
@@ -59,8 +59,8 @@ const Header = () => {
                             {dropdownOpen && (
                                 <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md p-4">
                                     <p className="text-gray-700 text-sm font-bold">ID: {user.id}</p>
-                                    <p className="text-gray-700 text-sm">{user.Name}</p>
-                                    <p className="text-gray-700 text-sm">{user.Email}</p>
+                                    <p className="text-gray-700 text-sm">{user.name}</p>
+                                    <p className="text-gray-700 text-sm">{user.email}</p>
                                     <button
                                         className="mt-2 w-full cursor-pointer text-black bg-slate-100 py-1 rounded hover:bg-slate-200"
                                         onClick={() => {

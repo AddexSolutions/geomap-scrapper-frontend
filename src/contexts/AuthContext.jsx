@@ -23,10 +23,9 @@ export function AuthProvider({ children }) {
         if (token) {
             const verifyToken = async () => {
                 try {
-                    const response = await fetch('https://primary-production-af7f.up.railway.app/webhook/geomap/validation', {
+                    const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/validation`, {
                         headers: {
-                            'Content-Type': 'application/json',
-                            'authorization': `Bearer ${token}`, // Include the token
+                            'Authorization': `Bearer ${token}`, // Include the token
                         },
                     });
 
@@ -44,6 +43,7 @@ export function AuthProvider({ children }) {
                         if (response.status === 403) {
                             localStorage.removeItem('geomap_auth');
                         }
+
                         setUser(null);
                     }
                 } catch (error) {
@@ -64,7 +64,7 @@ export function AuthProvider({ children }) {
     // Function to login the user
     const login = async (email, password) => {
         try {
-            const response = await fetch('https://primary-production-af7f.up.railway.app/webhook/geomap/sign-in', {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -96,7 +96,7 @@ export function AuthProvider({ children }) {
     // Function for signup
     const signup = async (name, email, phone, password) => {
         try {
-            const response = await fetch('https://primary-production-af7f.up.railway.app/webhook/geomap/sign-up?path=signup', {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/signup`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -111,7 +111,7 @@ export function AuthProvider({ children }) {
             console.log("SIGNUP DATA", data);
 
             if (response.ok) {
-                toast.success(data.message);
+                toast.success(data.detail);
 
                 // * TODO: SETUP A PAGE THAT SHOWS TO CHECK EMAIL FOR OTP VERIFICATION
 
@@ -119,26 +119,39 @@ export function AuthProvider({ children }) {
                     navigate(`/verify-email?email=${encodeURIComponent(email)}`);
                 }, 5000);
             } else {
-                throw new Error("Signup Error");
+                throw new Error(data.detail || "Signup Error");
             }
         } catch (error) {
             console.error('Signup Error:', error)
-            toast.error('Signup Error');
+            toast.error(error.message || 'Signup Error');
         }
     }
 
     // Function to logout the user
-    const logout = () => {
-        toast.success("Logout Successful");
-        localStorage.removeItem('geomap_auth')
-        setUser(null)
-        navigate('/login')
+    const logout = async () => {
+        try {
+            const token = localStorage.getItem('geomap_auth');
+
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/logout`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`, // Include the token
+                },
+            });
+            console.log(response);
+            localStorage.removeItem('geomap_auth')
+            toast.success("Logout Successful");
+            setUser(null)
+            navigate('/login')
+        } catch (error) {
+            console.log(error);
+            toast.error('Failed To Logout');
+        }
     }
 
     // Function to forget Password of user
     const forgetPassword = async (email, phone) => {
         try {
-            const response = await fetch('https://primary-production-af7f.up.railway.app/webhook/geomap/forgot-password', {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/forgot-password`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -148,18 +161,22 @@ export function AuthProvider({ children }) {
 
             console.log('Forgot Password Response:', response);
 
+            const data = await response.json();
+
+            console.log('Forget Password Data: ', data);
+
             if (response.ok) {
-                toast.success("Reset link sent! Check your email.");
+                toast.success(data.detail || "Reset link sent! Check your email.");
                 setTimeout(() => {
                     navigate('/login')
                 }, 1000)
             }
             else {
-                throw new Error("Failed to send reset link.");
+                throw new Error(data.detail);
             }
         } catch (error) {
             console.error('Forgot Password Error:', error);
-            toast.error("Error sending reset link. Try again.");
+            toast.error(error.message || "Error sending reset link. Try again.");
         }
     };
 

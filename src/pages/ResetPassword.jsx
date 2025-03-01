@@ -7,8 +7,8 @@ const ResetPassword = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const queryParams = new URLSearchParams(location.search);
+
     const token = queryParams.get('token') || '';
-    const path = queryParams.get('path') || '';
 
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -27,9 +27,11 @@ const ResetPassword = () => {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch(`https://primary-production-af7f.up.railway.app/webhook/geomap/reset-password?token=${token}&path=${path}`, {
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/reset-password?token=${token}`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify({ password, confirmPassword })
             });
 
@@ -40,16 +42,16 @@ const ResetPassword = () => {
             console.log('RESET_DATA', data);
 
             if (response.ok) {
-                toast.success(data.message);
+                toast.success(data.detail);
                 setTimeout(() => {
                     navigate('/login');
                 }, 1000)
             }
             else {
-                throw new Error(data.message || 'Failed To Reset Password');
+                throw new Error(data.detail || 'Failed To Reset Password');
             }
         } catch (err) {
-            toast.error(err.message || "Failed to reset password");
+            toast.error(err.detail || "Failed to reset password");
         } finally {
             setIsSubmitting(false);
             setPassword('');

@@ -1,32 +1,44 @@
 import React, { useState } from "react";
-import { Settings, Mail, Lock, X } from "lucide-react";
+import { Settings, Mail, Lock, X, Loader2 } from "lucide-react";
 import toast from "react-hot-toast";
 
-const DashboardSettings = ({ user }) => {
+const DashboardSettings = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [email, setEmail] = useState(user?.Email || "");
     const [password, setPassword] = useState("");
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const token = localStorage.getItem('geomap_auth');
 
     const handleResetPassword = async (event) => {
         try {
             event.preventDefault();
-            
-            const response = await fetch("https://primary-production-af7f.up.railway.app/webhook/geomap/reset-password?path=send-email", {
+            setIsSubmitting(true);
+
+            const response = await fetch(`${import.meta.env.VITE_SERVER_URL}/auth/send-reset-email`, {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password })
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                },
+                body: JSON.stringify({ password })
             });
 
             const data = await response.json();
 
+            console.log('RESET EMAIL REQUEST DATA: ', data);
+
             if (response.ok) {
-                toast.success(data.message);
+                toast.success(data.detail);
                 setIsModalOpen(false);
             } else {
-                throw new Error(data.message || "Failed to reset password");
+                throw new Error(data.detail || "Failed to reset password");
             }
         } catch (error) {
             toast.error(error.message);
+        } finally {
+            setIsSubmitting(false);
+            setPassword('');
         }
     };
 
@@ -61,24 +73,10 @@ const DashboardSettings = ({ user }) => {
                         </h2>
 
                         <form onSubmit={handleResetPassword} className="space-y-4">
-                            <div className="relative">
-                                <label className="text-sm text-gray-700 font-medium">Email</label>
-                                <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
-                                    <Mail className="w-5 h-5 text-gray-400 mx-3" />
-                                    <input
-                                        type="email"
-                                        className="w-full pe-2 py-2 focus:outline-none"
-                                        placeholder="Enter your email"
-                                        required
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                    />
-                                </div>
-                            </div>
 
                             <div className="relative">
                                 <label className="text-sm text-gray-700 font-medium">Current Password</label>
-                                <div className="flex items-center border border-gray-300 rounded-md overflow-hidden">
+                                <div className="flex items-center mt-2 border border-gray-300 rounded-md overflow-hidden">
                                     <Lock className="w-5 h-5 text-gray-400 mx-3" />
                                     <input
                                         type="password"
@@ -91,8 +89,8 @@ const DashboardSettings = ({ user }) => {
                                 </div>
                             </div>
 
-                            <button className="w-full cursor-pointer bg-indigo-600 text-white font-semibold px-4 py-2 rounded-md hover:bg-indigo-700 transition-all"                            >
-                                Submit
+                            <button className="w-full cursor-pointer flex justify-center bg-indigo-600 text-white font-semibold px-4 py-2 rounded-md hover:bg-indigo-700 transition-all"                            >
+                                {isSubmitting ? <Loader2 className="animate-spin" size={20} /> : 'Submit'}
                             </button>
                         </form>
                     </div>

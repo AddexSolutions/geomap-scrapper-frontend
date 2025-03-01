@@ -42,9 +42,9 @@ function MainLayout() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/verify-otp" element={<VerifyOTP />} />
         <Route path="/dashboard" element={
-          // <ProtectedRoute>
+          <ProtectedRoute>
             <Dashboard />
-          // {/* </ProtectedRoute> */}
+          </ProtectedRoute>
         } />
 
         {/* 404 Page */}
