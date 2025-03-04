@@ -1,8 +1,13 @@
-# React + Vite
+# MeetWise: AI-Powered Meeting Summarizer 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+MeetWise is an innovative SaaS solution designed to make meetings more productive and actionable. By leveraging AI, MeetWise records, transcribes, and generates concise summaries with actionable items, ensuring you never miss a critical detail. Seamlessly integrate it with popular video conferencing platforms and transform the way you handle meetings.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌟 Features
+
+- **Automatic Meeting Recording**: Capture every detail effortlessly during your meetings.  
+- **AI-Powered Transcriptions**: Generate accurate, real-time transcriptions of discussions.  
+- **Actionable Summaries**: Create concise action-item summaries to keep everyone aligned.  
+- **Seamless Integration**: Works with popular video conferencing platforms.  
+- **Time-Saving Automation**: Eliminate manual note-taking and post-meeting confusion.  
