@@ -2,7 +2,6 @@
 
 import { useState, useRef } from "react";
 import Image from "next/image";
-import { FiMenu } from "react-icons/fi";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useRouter } from "next/navigation";

@@ -6,7 +6,7 @@ import SelectionSection from "./SelectionSection";
 import { DMAS, STATES } from "./locationsData";
 import toast from "react-hot-toast";
 
-export default function JobSubmissionForm() {
+export default function ScrapeSubmissionForm() {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [selectedStates, setSelectedStates] = useState<{ value: string; label: string }[]>([]);
   const [selectedDmas, setSelectedDmas] = useState<{ value: string; label: string }[]>([]);
@@ -28,6 +28,8 @@ export default function JobSubmissionForm() {
     setSelectAllDmas(e.target.checked);
     setSelectedDmas(e.target.checked ? dmaOptions : []);
   }, [dmaOptions]);
+
+  console.log(isSubmitting);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,7 +77,7 @@ export default function JobSubmissionForm() {
       setSelectAllDmas(false);
     } catch (error) {
       console.error("🚨 Error submitting job:", error);
-      toast.error("Something went wrong while submitting. Please try again.");
+      toast.error("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
     }

@@ -217,11 +217,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
       const data = await response.json();
 
-      console.log(data);
-
       if (response.ok) {
         toast.success(data.detail || "Reset email sent successfully.");
-        setTimeout(() => router.refresh(), 1000);
+        setTimeout(() => window.location.reload(), 1000);
       } else {
         throw new Error(data.detail || "Failed to send reset email.");
       }

@@ -1,5 +1,6 @@
 "use client";
 
+import PreLoader from "@/components/Common/PreLoader";
 import Sidebar from "@/components/Dashboard/Sidebar";
 import Topbar from "@/components/Dashboard/Topbar";
 import { useAuth } from "@/context/AuthContext";
@@ -8,7 +9,7 @@ import { useState, useEffect } from "react";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   // State to control sidebar open/collapse
-  const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const router = useRouter();
   const { user, loading } = useAuth();
 
@@ -31,10 +32,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+
+  if (loading) return <PreLoader />;
+
   // Prevent rendering layout if user is not authenticated (Avoids flickering)
-  if (!user) {
-    return null;
-  }
+  if (!user) return null;
+
 
   return (
     <main className="flex h-screen overflow-hidden">
@@ -42,7 +45,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* Main content area */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col overflow-hidden">
         {/* Topbar */}
         <Topbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 

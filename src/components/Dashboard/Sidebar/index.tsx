@@ -14,7 +14,7 @@ interface SidebarProps {
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Dashboard", icon: FiHome },
-  { href: "/dashboard/jobs", label: "Jobs", icon: TbSubtask },
+  { href: "/dashboard/scrap-request", label: "Start Scraping", icon: TbSubtask },
   { href: "/dashboard/user-profile", label: "User Profile", icon: FiUser },
   { href: "/dashboard/settings", label: "Settings", icon: FiSettings },
 ];
@@ -43,7 +43,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
   }
 
   return (
-    <div ref={sidebarRef} className={`flex flex-col fixed top-0 left-0 z-50 h-screen w-72 bg-white border-r transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:static lg:w-72 lg:translate-x-0`}>
+    <div ref={sidebarRef} className={`shrink-0 flex flex-col fixed top-0 left-0 z-50 h-screen w-72 bg-white border-r transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:static lg:w-72 lg:translate-x-0`}>
       {/* Sidebar Header */}
       <div className="p-4 flex items-center justify-between">
         <div className="flex items-center gap-1">
@@ -65,7 +65,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }: SidebarProps) {
   );
 }
 
-// 🎯 Sidebar Navigation Component
+// SIDEBAR NAVIGATION CONTENT: 
 const SidebarNav = () => {
   const pathname = usePathname();
 
@@ -93,7 +93,7 @@ const SidebarNav = () => {
   );
 };
 
-// 🎯 Go to Homepage Component
+// * GO TO HOMEPAGE COMPONENT:
 const GoToHomepage = () => (
   <div className="p-4 mx-3 my-4 bg-slate-50 rounded-lg text-center">
     <h3 className="text-sm font-semibold">Power Up Your Lead Generation</h3>

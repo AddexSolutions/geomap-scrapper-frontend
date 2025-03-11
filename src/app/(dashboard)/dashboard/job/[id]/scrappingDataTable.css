@@ -1,0 +1,289 @@
+/* ============================= */
+/*  1) DataTable styles         */
+/* ============================= */
+
+/* DataTable header & body */
+table.dataTable thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    padding: 8px;
+}
+
+table.dataTable tbody td {
+    padding: 8px;
+}
+
+/* ============================= */
+/*  .text-truncate equivalent   */
+/* ============================= */
+.text-truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ============================= */
+/* 2) Custom Button Classes     */
+/* ============================= */
+
+/* Base .btn style (Bootstrap-like) */
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #212529;
+    background-color: #fff;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+}
+
+.btn:hover {
+    filter: brightness(95%);
+}
+
+/* .btn-sm variant */
+.btn-sm {
+    padding: 4px 8px;
+    font-size: 12px;
+}
+
+/* .btn-outline-dark variant */
+.btn-outline-dark {
+    border-color: #343a40;
+    color: #343a40;
+    background-color: transparent;
+}
+
+.btn-outline-dark:hover {
+    color: #fff;
+    background-color: #343a40;
+}
+
+/* .btn-dark variant */
+.btn-dark {
+    color: #fff !important;
+    background-color: #343a40 !important;
+    border-color: #343a40 !important;
+}
+
+.btn-dark:hover {
+    background-color: #23272b !important;
+    border-color: #1d2124 !important;
+}
+
+/* Focus state for buttons */
+.btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* ============================= */
+/* 3) Utility Classes           */
+/* ============================= */
+
+/* Margin bottom utility */
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+/* ============================= */
+/* 4) Table Styling (Bootstrap-like) */
+/* ============================= */
+
+.table {
+    width: 100%;
+    color: #212529;
+    border-collapse: collapse;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    font-weight: 600;
+}
+
+.table th,
+.table td {
+    padding: 0.75rem;
+    border-top: 1px solid #dee2e6;
+    vertical-align: middle;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+/* ============================= */
+/* 5) DataTable Form Controls   */
+/* ============================= */
+
+/* .dt-length: entries input styling */
+.dt-length {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: start;
+    text-transform: capitalize;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+.dt-length select {
+    padding: 6px 10px;
+    border: 1px solid #343a40;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.dt-length select:hover {
+    background-color: #f8f9fa;
+}
+
+.dt-length select:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    border-color: #007bff;
+}
+
+.dt-length label {
+    font-size: 14px;
+    color: #666;
+}
+
+/* .dt-search: search box styling */
+.dt-search {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: 8px;
+    margin-bottom: 1rem;
+    font-size: 14px;
+    color: #333;
+    font-weight: 500;
+}
+
+.dt-search input {
+    padding: 6px 12px;
+    border: 1px solid #343a40;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    font-size: 14px;
+    transition: all 0.2s ease-in-out;
+    outline: none;
+}
+
+.dt-search input::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+.dt-search input:hover {
+    background-color: #f8f9fa;
+}
+
+.dt-search input:focus {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    border-color: #007bff;
+}
+
+.dt-search label {
+    font-size: 14px;
+    color: #666;
+}
+
+
+/* ============================= */
+/* 6) Pagination Styling        */
+/* ============================= */
+
+.dt-info {
+    margin-top: 1rem;
+}
+
+nav[aria-label="pagination"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+
+.dt-paging-button {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    color: #333;
+    padding: 6px 12px;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 35px;
+}
+
+.dt-paging-button:hover {
+    background: #e9ecef;
+    border-color: #ced4da;
+}
+
+.dt-paging-button.current {
+    background: black;
+    color: white;
+    border-color: black;
+}
+
+.dt-paging-button.disabled {
+    background: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+.dt-paging-button svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+.dt-paging-button.first,
+.dt-paging-button.last {
+    padding: 6px 14px;
+}
+
+.dt-paging-button.next,
+.dt-paging-button.previous {
+    padding: 6px 10px;
+}
+
+@media (max-width: 640px) {
+    nav[aria-label="pagination"] {
+        gap: 4px;
+    }
+
+    .dt-paging-button {
+        font-size: 12px;
+        padding: 4px 10px;
+        min-width: 30px;
+    }
+
+    .dt-paging-button.first,
+    .dt-paging-button.last,
+    .dt-paging-button.next,
+    .dt-paging-button.previous {
+        padding: 4px 8px;
+    }
+}

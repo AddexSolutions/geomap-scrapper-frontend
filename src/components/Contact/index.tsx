@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -37,9 +37,6 @@ const Contact = () => {
       <div className="absolute left-0 top-0 -z-[1] h-full w-full dark:bg-dark"></div>
       <div className="absolute left-0 top-0 -z-[1] h-1/2 w-full bg-[#E9F9FF] dark:bg-dark-700 lg:h-[60%] xl:h-3/5"></div>
       <div className="container px-4">
-        {/* Toaster For Toast Notification */}
-        <Toaster />
-
         <div className="-mx-4 flex flex-wrap items-center">
           <div className="w-full px-4 lg:w-7/12 xl:w-8/12">
             <div className="ud-contact-content-wrapper">

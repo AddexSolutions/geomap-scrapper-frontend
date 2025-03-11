@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import DashboardContent from "@/components/Dashboard/DashboardContent";
 
 export const metadata: Metadata = {
   title: "Dashboard | GMaps Scraper",
@@ -6,9 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function DashboardPage() {
-  return (
-    <div className="p-4 md:p-6 bg-white rounded-xl border min-h-screen">
-      <h1 className="text-xl font-bold mb-6">Dashboard</h1>
-    </div>
-  );
+  return <DashboardContent />;
 }
